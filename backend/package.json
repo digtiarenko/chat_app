@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./server.js",
-    "start:dev": " nodemon ./server.js"
+    "dev": " nodemon ./server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "mongoose": "^6.6.4",
     "nodemon": "^2.0.20"
   }
 }

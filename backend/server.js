@@ -4,7 +4,7 @@ const chats = require('./src/data/data');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-app.listen(PORT, console.log(`server run on ${PORT}`));
+app.listen(PORT, console.log(`server is runing on port: ${PORT}`));
 
 app.get('/', (req, res) => {
   res.send('API is running');
