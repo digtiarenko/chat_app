@@ -23,7 +23,7 @@ export const Login = () => {
       toast({
         title: 'Please Fill all the Feilds',
         status: 'warning',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -49,7 +49,7 @@ export const Login = () => {
       toast({
         title: 'Login Successful',
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -91,6 +91,7 @@ export const Login = () => {
               setPassword(e.target.value);
             }}
           />
+
           <InputRightElement width="4.5rem">
             <Button
               h="1.75rem"

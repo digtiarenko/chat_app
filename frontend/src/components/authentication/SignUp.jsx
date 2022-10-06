@@ -64,7 +64,7 @@ export const SignUp = () => {
       toast({
         title: 'Registration Successful',
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -76,7 +76,7 @@ export const SignUp = () => {
         title: 'Error Occured!',
         description: error.response.data.message,
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
