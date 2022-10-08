@@ -1,4 +1,4 @@
-const { Schema, Model } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const chatModel = Schema(
   {
@@ -28,6 +28,6 @@ const chatModel = Schema(
   },
   { timestamps: true, versionKey: false },
 );
-const Chat = Model('Chat', chatModel);
+const Chat = model('Chat', chatModel);
 
 module.exports = Chat;

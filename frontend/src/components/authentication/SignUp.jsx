@@ -7,9 +7,14 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase/firebase';
+
+axios.defaults.baseURL = process.env.REACT_APP_BASE_API_URL;
+
 export const SignUp = () => {
   const [show, setShow] = useState(false);
-  //   const handleClick = () => setShow(!show);
+
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -26,7 +31,7 @@ export const SignUp = () => {
       toast({
         title: 'Please Fill all the Feilds',
         status: 'warning',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -43,24 +48,22 @@ export const SignUp = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
+
     try {
-      const config = {
-        headers: {
-          'Content-type': 'application/json',
-        },
+      // const config = {
+      //   headers: {
+      //     'Content-type': 'application/json',
+      //   },
+      // };
+      const newUser = {
+        name,
+        email,
+        password,
+        pic,
       };
-      const { data } = await axios.post(
-        '/api/user',
-        {
-          name,
-          email,
-          password,
-          pic,
-        },
-        config,
-      );
-      console.log(data);
+      console.log('newUser:', newUser);
+      const { data } = await axios.post('api/user/register/', newUser);
+      console.log('data', data);
       toast({
         title: 'Registration Successful',
         status: 'success',
@@ -84,43 +87,34 @@ export const SignUp = () => {
     }
   };
 
-  const postDetails = pics => {
+  const postDetails = async pics => {
     setPicLoading(true);
     if (pics === undefined) {
       toast({
         title: 'Please Select an Image!',
         status: 'warning',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
       return;
     }
-    console.log(pics);
+
     if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
-      const data = new FormData();
-      data.append('file', pics);
-      data.append('upload_preset', 'chat-app');
-      data.append('cloud_name', 'piyushproj');
-      fetch('https://api.cloudinary.com/v1_1/piyushproj/image/upload', {
-        method: 'post',
-        body: data,
-      })
-        .then(res => res.json())
-        .then(data => {
-          setPic(data.url.toString());
-          console.log(data.url.toString());
-          setPicLoading(false);
-        })
-        .catch(err => {
-          console.log(err);
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${date}`);
+      await uploadBytesResumable(storageRef, pics).then(() => {
+        getDownloadURL(storageRef).then(downloadURL => {
+          setPic(downloadURL);
+          console.log(downloadURL);
           setPicLoading(false);
         });
+      });
     } else {
       toast({
         title: 'Please Select an Image!',
         status: 'warning',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });

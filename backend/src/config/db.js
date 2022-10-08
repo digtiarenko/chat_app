@@ -4,8 +4,6 @@ const colors = require('colors');
 
 const { DB_HOST } = process.env;
 
-console.log('DB_HOST', DB_HOST);
-
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(DB_HOST, {

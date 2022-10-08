@@ -8,9 +8,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+axios.defaults.baseURL = process.env.REACT_APP_BASE_API_URL;
+
 export const Login = () => {
-  const [show, setShow] = useState(false);
   const toast = useToast();
+  const [show, setShow] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
@@ -31,21 +33,20 @@ export const Login = () => {
       return;
     }
 
-    // console.log(email, password);
+    console.log(email, password);
     try {
-      const config = {
-        headers: {
-          'Content-type': 'application/json',
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     'Content-type': 'application/json',
+      //   },
+      // };
 
-      const { data } = await axios.post(
-        '/api/user/login',
-        { email, password },
-        config,
-      );
+      const { data } = await axios.post('/api/user/login/', {
+        email,
+        password,
+      });
 
-      // console.log(JSON.stringify(data));
+      console.log(JSON.stringify(data));
       toast({
         title: 'Login Successful',
         status: 'success',
@@ -74,7 +75,6 @@ export const Login = () => {
       <FormControl id="email" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
-          value={email}
           type="email"
           placeholder="Enter Your Email Address"
           onChange={e => setEmail(e.target.value)}
@@ -84,7 +84,6 @@ export const Login = () => {
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
-            value={password}
             type={show ? 'text' : 'password'}
             placeholder="Enter password"
             onChange={e => {
@@ -114,17 +113,6 @@ export const Login = () => {
       >
         Login
       </Button>
-      {/* <Button
-        variant="solid"
-        colorScheme="gray"
-        width="100%"
-        onClick={() => {
-          //   setEmail('guest@example.com');
-          //   setPassword('123456');
-        }}
-      >
-        Get Guest User Credentials
-      </Button> */}
     </VStack>
   );
 };
