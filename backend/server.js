@@ -8,6 +8,7 @@ const {
   errorHandler,
 } = require('./src/middleWares/ErrorMiddlewares');
 const userRoutes = require('./src/routes/userRoutes');
+const chatRoutes = require('./src/routes/chatRoutes');
 
 const { PORT } = process.env;
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
