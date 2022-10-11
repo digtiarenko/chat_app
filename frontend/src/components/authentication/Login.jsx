@@ -33,7 +33,6 @@ export const Login = () => {
       return;
     }
 
-    console.log(email, password);
     try {
       // const config = {
       //   headers: {
@@ -46,7 +45,6 @@ export const Login = () => {
         password,
       });
 
-      console.log(JSON.stringify(data));
       toast({
         title: 'Login Successful',
         status: 'success',

@@ -10,7 +10,7 @@ function App() {
     <div className="app">
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/chat" element={<ChatPage />}></Route>
+        <Route path="/chats" element={<ChatPage />}></Route>
         {/* Hello
       <Button colorScheme="blue">Button</Button> */}
       </Routes>
