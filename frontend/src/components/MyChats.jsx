@@ -1,38 +1,38 @@
-// import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon } from '@chakra-ui/icons';
 import { Box, Stack, Text } from '@chakra-ui/layout';
 import { useToast } from '@chakra-ui/toast';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-// import { getSender } from '../config/ChatLogics';
+import { getSender } from '../config/ChatLogic';
 // import ChatLoading from './ChatLoading';
 import { GroupChatModal } from './miscellaneous/GroupChatModal';
-import { Button } from '@chakra-ui/react';
+import { Button, tokenToCSSVar } from '@chakra-ui/react';
 import { ChatState } from '../context/chatProvider';
 
 export const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
-
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
-
   const toast = useToast();
+  const token = {
+    set(token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    },
+    unset() {
+      axios.defaults.headers.common['Authorization'] = '';
+    },
+  };
 
   const fetchChats = async () => {
-    // console.log(user._id);
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await axios.get('/api/chat', config);
+      token.set(user.token);
+      const { data } = await axios.get('/api/chat');
       setChats(data);
     } catch (error) {
       toast({
         title: 'Error Occured!',
         description: 'Failed to Load the chats',
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom-left',
       });
@@ -47,41 +47,41 @@ export const MyChats = ({ fetchAgain }) => {
 
   return (
     <Box
-      d={{ base: selectedChat ? 'none' : 'flex', md: 'flex' }}
-      flexDir="column"
+      display={{ base: selectedChat ? 'none' : 'flex', md: 'flex' }}
+      flexDirection="column"
       alignItems="center"
       p={3}
-      bg="white"
+      bg="rgba(182, 176, 182, 0.3)"
       w={{ base: '100%', md: '31%' }}
       borderRadius="lg"
-      borderWidth="1px"
     >
       <Box
         pb={3}
         px={3}
         fontSize={{ base: '28px', md: '30px' }}
         fontFamily="Work sans"
-        d="flex"
-        w="100%"
+        display="flex"
+        width="100%"
         justifyContent="space-between"
         alignItems="center"
       >
         My Chats
         <GroupChatModal>
           <Button
-            d="flex"
+            colorScheme="gray"
+            display="flex"
             fontSize={{ base: '17px', md: '10px', lg: '17px' }}
-            // rightIcon={<AddIcon />}
+            rightIcon={<AddIcon />}
           >
             New Group Chat
           </Button>
         </GroupChatModal>
       </Box>
       <Box
-        d="flex"
-        flexDir="column"
+        display="flex"
+        flexDirection="column"
         p={3}
-        bg="#F8F8F8"
+        bg="rgba(182, 176, 182, 0.3)"
         w="100%"
         h="100%"
         borderRadius="lg"
@@ -93,17 +93,21 @@ export const MyChats = ({ fetchAgain }) => {
               <Box
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
-                bg={selectedChat === chat ? '#38B2AC' : '#E8E8E8'}
-                color={selectedChat === chat ? 'white' : 'black'}
+                _hover={{
+                  background: 'rgba(182, 176, 182, 0.6)',
+                  color: 'black',
+                }}
+                bg={selectedChat === chat ? 'white' : 'transparent'}
+                // color={selectedChat === chat ? 'white' : 'black'}
                 px={3}
                 py={2}
                 borderRadius="lg"
                 key={chat._id}
               >
                 <Text>
-                  {/* {!chat.isGroupChat
+                  {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
-                    : chat.chatName} */}
+                    : chat.chatName}
                 </Text>
                 {chat.latestMessage && (
                   <Text fontSize="xs">

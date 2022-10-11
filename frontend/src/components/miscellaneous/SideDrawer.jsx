@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
-// import { Spinner } from '@chakra-ui/spinner';
+import { Spinner } from '@chakra-ui/spinner';
 import { ProfileModal } from './ProfileModal';
 // import NotificationBadge from 'react-notification-badge';
 // import { Effect } from 'react-notification-badge';
@@ -58,7 +58,7 @@ export function SideDrawer() {
 
   const token = {
     set(token) {
-      axios.defaults.headers.common['Authorization'] = token;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     },
     unset() {
       axios.defaults.headers.common['Authorization'] = '';
@@ -80,11 +80,6 @@ export function SideDrawer() {
     try {
       setLoading(true);
       token.set(user.token);
-      // const config = {
-      //   headers: {
-      //     Authorization: `Bearer ${user.token}`,
-      //   },
-      // };
       const { data } = await axios.get(`/api/user?search=${search}`);
       setLoading(false);
       setSearchResult(data);
@@ -101,20 +96,13 @@ export function SideDrawer() {
   };
 
   const accessChat = async userId => {
-    console.log(userId);
-
     try {
       setLoadingChat(true);
       token.set(user.token);
-      // const config = {
-      //   headers: {
-      //     'Content-type': 'application/json',
-      //     Authorization: `Bearer ${user.token}`,
-      //   },
-      // };
       const { data } = await axios.post(`/api/chat`, { userId });
-
-      if (!chats.find(c => c._id === data._id)) setChats([data, ...chats]);
+      if (!chats.find(c => c._id === data._id)) {
+        setChats([data, ...chats]);
+      }
       setSelectedChat(data);
       setLoadingChat(false);
       onClose();
@@ -123,7 +111,7 @@ export function SideDrawer() {
         title: 'Error fetching the chat',
         description: error.message,
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom-left',
       });
@@ -235,7 +223,7 @@ export function SideDrawer() {
                 />
               ))
             )}
-            {/* {loadingChat && <Spinner ml="auto" d="flex" />} */}
+            {loadingChat && <Spinner ml="auto" d="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
