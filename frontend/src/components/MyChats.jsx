@@ -8,19 +8,12 @@ import { getSender } from '../config/ChatLogic';
 import { GroupChatModal } from './miscellaneous/GroupChatModal';
 import { Button, tokenToCSSVar } from '@chakra-ui/react';
 import { ChatState } from '../context/chatProvider';
+import { token } from '../config/tokenSet';
 
 export const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const toast = useToast();
-  const token = {
-    set(token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    },
-    unset() {
-      axios.defaults.headers.common['Authorization'] = '';
-    },
-  };
 
   const fetchChats = async () => {
     try {
@@ -69,6 +62,7 @@ export const MyChats = ({ fetchAgain }) => {
         <GroupChatModal>
           <Button
             colorScheme="gray"
+            bg="transparent"
             display="flex"
             fontSize={{ base: '17px', md: '10px', lg: '17px' }}
             rightIcon={<AddIcon />}

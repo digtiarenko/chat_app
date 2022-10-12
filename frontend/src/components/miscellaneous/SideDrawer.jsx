@@ -31,6 +31,7 @@ import { ProfileModal } from './ProfileModal';
 import { UserListItem } from '../userAvatar/UserListItem';
 import { ChatState } from '../../context/chatProvider';
 import { ChatLoading } from '../ChatLoading';
+import { token } from '../../config/tokenSet';
 
 export function SideDrawer() {
   const [search, setSearch] = useState('');
@@ -56,14 +57,14 @@ export function SideDrawer() {
     navigate('/');
   };
 
-  const token = {
-    set(token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    },
-    unset() {
-      axios.defaults.headers.common['Authorization'] = '';
-    },
-  };
+  // const token = {
+  //   set(token) {
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  //   },
+  //   unset() {
+  //     axios.defaults.headers.common['Authorization'] = '';
+  //   },
+  // };
 
   const handleSearch = async () => {
     if (!search) {
