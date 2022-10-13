@@ -19,6 +19,7 @@ import { token } from '../../config/tokenSet';
 import { ChatState } from '../../context/chatProvider';
 import { UserBadgeItem } from '../userAvatar/UserBadgeItem';
 import { UserListItem } from '../userAvatar/UserListItem';
+import debounce from 'lodash.debounce';
 
 export const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,32 +33,20 @@ export const GroupChatModal = ({ children }) => {
   const { user, chats, setChats } = ChatState();
 
   const handleGroup = userToAdd => {
-    if (selectedUsers.includes(userToAdd)) {
-      toast({
-        title: 'User already added',
-        status: 'warning',
-        duration: 3000,
-        isClosable: true,
-        position: 'top',
-      });
-      return;
-    }
-    //* remove added user from search query
-
     setSelectedUsers([...selectedUsers, userToAdd]);
+    setSearchResult([]);
   };
 
   const handleSearch = async query => {
-    setSearch(query);
     if (!query) {
+      setSearchResult([]);
       return;
     }
-
+    setSearch(query);
     try {
       setLoading(true);
       token.set(user.token);
       const { data } = await axios.get(`/api/user?search=${search}`);
-      console.log(data);
       const modifiedData = data.filter(
         res => !selectedUsers.some(us => us._id === res._id),
       );
@@ -90,27 +79,18 @@ export const GroupChatModal = ({ children }) => {
       });
       return;
     }
-
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.post(
-        `/api/chat/group`,
-        {
-          name: groupChatName,
-          users: JSON.stringify(selectedUsers.map(u => u._id)),
-        },
-        config,
-      );
+      token.set(user.token);
+      const { data } = await axios.post(`/api/chat/group`, {
+        name: groupChatName,
+        users: JSON.stringify(selectedUsers.map(u => u._id)),
+      });
       setChats([data, ...chats]);
       onClose();
       toast({
         title: 'New Group Chat Created!',
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -119,7 +99,7 @@ export const GroupChatModal = ({ children }) => {
         title: 'Failed to Create the Chat!',
         description: error.response.data,
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -132,7 +112,7 @@ export const GroupChatModal = ({ children }) => {
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent height="400px">
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"
@@ -154,7 +134,7 @@ export const GroupChatModal = ({ children }) => {
               <Input
                 placeholder="add someone"
                 mb={1}
-                onChange={e => handleSearch(e.target.value)}
+                onChange={debounce(e => handleSearch(e.target.value), 500)}
               />
             </FormControl>
             <Box w="100%" display="flex" flexWrap="wrap">

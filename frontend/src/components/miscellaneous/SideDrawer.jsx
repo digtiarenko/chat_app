@@ -57,15 +57,6 @@ export function SideDrawer() {
     navigate('/');
   };
 
-  // const token = {
-  //   set(token) {
-  //     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  //   },
-  //   unset() {
-  //     axios.defaults.headers.common['Authorization'] = '';
-  //   },
-  // };
-
   const handleSearch = async () => {
     if (!search) {
       toast({
@@ -89,7 +80,7 @@ export function SideDrawer() {
         title: 'Error Occured!',
         description: 'Failed to Load the Search Results',
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom-left',
       });
@@ -125,20 +116,18 @@ export function SideDrawer() {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        // bg="white"
         w="100%"
         p="5px 10px 5px 10px"
-        // borderWidth="5px"
       >
         <Tooltip
-          d="flex"
+          display="flex"
           label="Add someone to chat"
           hasArrow
           placement="bottom-end"
         >
           <Button variant="ghost" onClick={onOpen}>
             <i className="fas fa-search"></i>
-            <Text d={{ base: 'none', md: 'flex' }} px={4}>
+            <Text display={{ base: 'none', md: 'flex' }} px={4}>
               Search User
             </Text>
           </Button>
@@ -224,7 +213,7 @@ export function SideDrawer() {
                 />
               ))
             )}
-            {loadingChat && <Spinner ml="auto" d="flex" />}
+            {loadingChat && <Spinner ml="auto" display="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
