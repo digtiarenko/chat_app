@@ -9,6 +9,7 @@ const {
 } = require('./src/middleWares/ErrorMiddlewares');
 const userRoutes = require('./src/routes/userRoutes');
 const chatRoutes = require('./src/routes/chatRoutes');
+const messageRoutes = require('./src/routes/messageRoutes');
 
 const { PORT } = process.env;
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/message', messageRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

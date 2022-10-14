@@ -23,7 +23,7 @@ export const MyChats = ({ fetchAgain }) => {
     } catch (error) {
       toast({
         title: 'Error Occured!',
-        description: 'Failed to Load the chats',
+        description: 'Failed to load chats',
         status: 'error',
         duration: 3000,
         isClosable: true,

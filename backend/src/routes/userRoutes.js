@@ -1,7 +1,7 @@
 const express = require('express');
-const authUser = require('../controllers/authCrtl');
+const authUser = require('../controllers/auth/authCrtl');
 const getAllUsers = require('../controllers/getAllUsers');
-const registerUser = require('../controllers/registerCtrl');
+const registerUser = require('../controllers/auth/registerCtrl');
 const auth = require('../middleWares/authMiddleware');
 
 const router = express.Router();
