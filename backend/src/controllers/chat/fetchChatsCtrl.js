@@ -1,5 +1,4 @@
 const { Chat, User } = require('../../models');
-// const { Chat } = require('../../models');
 const asyncHandler = require('express-async-handler');
 
 const fetchChatsCtrl = asyncHandler(async (req, res) => {

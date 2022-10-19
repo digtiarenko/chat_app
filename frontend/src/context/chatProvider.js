@@ -15,7 +15,7 @@ export const ChatProvider = ({ children }) => {
     setUser(userInfo);
 
     if (!userInfo) {
-      navigate('/');
+      navigate('/auth');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);

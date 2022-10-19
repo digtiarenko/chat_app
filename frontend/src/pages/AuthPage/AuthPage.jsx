@@ -11,7 +11,7 @@ import {
 import { Login } from '../../components/authentication/Login';
 import { SignUp } from '../../components/authentication/SignUp';
 
-export const HomePage = () => {
+export const AuthPage = () => {
   return (
     <Container maxW="xl" centerContent>
       <Box

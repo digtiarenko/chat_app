@@ -73,7 +73,7 @@ export const GroupChatModal = ({ children }) => {
       toast({
         title: 'Please fill all the feilds',
         status: 'warning',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'top',
       });
@@ -147,7 +147,6 @@ export const GroupChatModal = ({ children }) => {
               ))}
             </Box>
             {loading ? (
-              // <ChatLoading />
               <div>Loading...</div>
             ) : (
               searchResult

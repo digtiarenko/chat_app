@@ -25,9 +25,9 @@ import axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { Spinner } from '@chakra-ui/spinner';
 import { ProfileModal } from './ProfileModal';
-// import NotificationBadge from 'react-notification-badge';
-// import { Effect } from 'react-notification-badge';
-// import { getSender } from '../../config/ChatLogics';
+import NotificationBadge from 'react-notification-badge';
+import { Effect } from 'react-notification-badge';
+import { getSender } from '../../config/ChatLogic';
 import { UserListItem } from '../userAvatar/UserListItem';
 import { ChatState } from '../../context/chatProvider';
 import { ChatLoading } from '../ChatLoading';
@@ -54,7 +54,7 @@ export function SideDrawer() {
 
   const logoutHandler = () => {
     localStorage.removeItem('userInfo');
-    navigate('/');
+    navigate('/auth');
   };
 
   const handleSearch = async () => {
@@ -138,10 +138,10 @@ export function SideDrawer() {
         <div>
           <Menu>
             <MenuButton p={1}>
-              {/* <NotificationBadge
+              <NotificationBadge
                 count={notification.length}
                 effect={Effect.SCALE}
-              /> */}
+              />
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList pl={2}>
@@ -154,12 +154,9 @@ export function SideDrawer() {
                     setNotification(notification.filter(n => n !== notif));
                   }}
                 >
-                  {notif.chat.isGroupChat ? (
-                    `New Message in ${notif.chat.chatName}`
-                  ) : (
-                    <div></div>
-                  )}
-                  {/* // `New Message from ${getSender(user, notif.chat.users)}`} */}
+                  {notif.chat.isGroupChat
+                    ? `New Message in ${notif.chat.chatName}`
+                    : `New Message from ${getSender(user, notif.chat.users)}`}
                 </MenuItem>
               ))}
             </MenuList>

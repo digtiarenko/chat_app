@@ -42,7 +42,7 @@ export const SignUp = () => {
       toast({
         title: 'Passwords Do Not Match',
         status: 'warning',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -50,11 +50,6 @@ export const SignUp = () => {
     }
 
     try {
-      // const config = {
-      //   headers: {
-      //     'Content-type': 'application/json',
-      //   },
-      // };
       const newUser = {
         name,
         email,
@@ -63,7 +58,6 @@ export const SignUp = () => {
       };
       console.log('newUser:', newUser);
       const { data } = await axios.post('api/user/register/', newUser);
-      console.log('data', data);
       toast({
         title: 'Registration Successful',
         status: 'success',
@@ -73,7 +67,7 @@ export const SignUp = () => {
       });
       localStorage.setItem('userInfo', JSON.stringify(data));
       setPicLoading(false);
-      navigate('/chats');
+      navigate('/');
     } catch (error) {
       toast({
         title: 'Error Occured!',
@@ -140,7 +134,7 @@ export const SignUp = () => {
           onChange={e => setEmail(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -155,7 +149,7 @@ export const SignUp = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input

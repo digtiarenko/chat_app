@@ -4,9 +4,9 @@ import { useToast } from '@chakra-ui/toast';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getSender } from '../config/ChatLogic';
-// import ChatLoading from './ChatLoading';
+import { ChatLoading } from './ChatLoading';
 import { GroupChatModal } from './miscellaneous/GroupChatModal';
-import { Button, tokenToCSSVar } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { ChatState } from '../context/chatProvider';
 import { token } from '../config/tokenSet';
 
@@ -115,8 +115,7 @@ export const MyChats = ({ fetchAgain }) => {
             ))}
           </Stack>
         ) : (
-          <div>f</div>
-          // <ChatLoading />
+          <ChatLoading />
         )}
       </Box>
     </Box>

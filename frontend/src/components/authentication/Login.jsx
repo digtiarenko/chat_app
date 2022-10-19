@@ -32,14 +32,7 @@ export const Login = () => {
       setLoading(false);
       return;
     }
-
     try {
-      // const config = {
-      //   headers: {
-      //     'Content-type': 'application/json',
-      //   },
-      // };
-
       const { data } = await axios.post('/api/user/login/', {
         email,
         password,
@@ -54,13 +47,13 @@ export const Login = () => {
       });
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
-      navigate('/chats');
+      navigate('/');
     } catch (error) {
       toast({
         title: 'Error Occured!',
         description: error.response.data.message,
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: 'bottom',
       });
@@ -70,7 +63,7 @@ export const Login = () => {
 
   return (
     <VStack spacing="10px">
-      <FormControl id="email" isRequired>
+      <FormControl isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           type="email"
@@ -78,7 +71,7 @@ export const Login = () => {
           onChange={e => setEmail(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input

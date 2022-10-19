@@ -78,7 +78,6 @@ export const UpdateGroupChatModal = ({
         chatId: selectedChat._id,
         chatName: groupChatName,
       });
-      // setSelectedChat("");
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       setRenameLoading(false);
@@ -97,17 +96,6 @@ export const UpdateGroupChatModal = ({
   };
 
   const handleAddUser = async user1 => {
-    // if (selectedChat.users.find(u => u._id === user1._id)) {
-    //   toast({
-    //     title: 'User Already in group!',
-    //     status: 'error',
-    //     duration: 3000,
-    //     isClosable: true,
-    //     position: 'bottom',
-    //   });
-    //   return;
-    // }
-
     if (selectedChat.groupAdmin._id !== user._id) {
       toast({
         title: 'Only admins can add someone!',

@@ -8,8 +8,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { ProfileModal } from './miscellaneous/ProfileModal';
-// import Lottie from 'react-lottie';
-// import animationData from '../animations/typing.json';
 import io from 'socket.io-client';
 import { ChatState } from '../context/chatProvider';
 import { token } from '../config/tokenSet';
@@ -27,14 +25,6 @@ export const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [isTyping, setIsTyping] = useState(false);
   const toast = useToast();
 
-  //   const defaultOptions = {
-  //     loop: true,
-  //     autoplay: true,
-  //     animationData: animationData,
-  //     rendererSettings: {
-  //       preserveAspectRatio: 'xMidYMid slice',
-  //     },
-  //   };
   const { selectedChat, setSelectedChat, user, notification, setNotification } =
     ChatState();
 
@@ -97,7 +87,6 @@ export const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     fetchMessages();
-
     selectedChatCompare = selectedChat;
     // eslint-disable-next-line
   }, [selectedChat]);
@@ -206,23 +195,9 @@ export const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               isRequired
               mt={3}
             >
-              {isTyping ? (
-                <div>
-                  {' '}
-                  typing
-                  {/* <Lottie
-                    options={defaultOptions}
-                    // height={50}
-                    width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
-                  /> */}
-                </div>
-              ) : (
-                <></>
-              )}
+              {isTyping ? <div>typing</div> : <></>}
               <Input
                 variant="outlined"
-                // bg="#E0E0E0"
                 placeholder="Enter a message..."
                 value={newMessage}
                 onChange={typingHandler}
