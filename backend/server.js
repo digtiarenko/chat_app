@@ -7,6 +7,7 @@ const {
   notFound,
   errorHandler,
 } = require('./src/middleWares/ErrorMiddlewares');
+const path = require('path');
 const userRoutes = require('./src/routes/userRoutes');
 const chatRoutes = require('./src/routes/chatRoutes');
 const messageRoutes = require('./src/routes/messageRoutes');
@@ -14,17 +15,31 @@ const messageRoutes = require('./src/routes/messageRoutes');
 const { PORT } = process.env;
 const app = express();
 connectDB();
-const server = app.listen(
-  PORT,
-  console.log(`server is runing on port: ${PORT}`.green.bold),
-);
+
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes);
+//Deployment================
+const basedir = path.resolve();
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(basedir, '/frontend/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(basedir, 'frontend', 'build', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running...');
+  });
+}
+//Deployment================
 
+const server = app.listen(
+  PORT,
+  console.log(`server is runing on port: ${PORT}`.green.bold),
+);
 app.use(notFound);
 app.use(errorHandler);
 
