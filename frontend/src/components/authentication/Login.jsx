@@ -37,6 +37,7 @@ export const Login = () => {
         email,
         password,
       });
+      localStorage.setItem('userInfo', JSON.stringify(data));
 
       toast({
         title: 'Login Successful',
@@ -45,7 +46,6 @@ export const Login = () => {
         isClosable: true,
         position: 'bottom',
       });
-      localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
       navigate('/');
     } catch (error) {

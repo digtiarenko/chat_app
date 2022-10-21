@@ -56,7 +56,7 @@ export const SignUp = () => {
         password,
         pic,
       };
-      console.log('newUser:', newUser);
+
       const { data } = await axios.post('api/user/register/', newUser);
       toast({
         title: 'Registration Successful',
@@ -100,7 +100,6 @@ export const SignUp = () => {
       await uploadBytesResumable(storageRef, pics).then(() => {
         getDownloadURL(storageRef).then(downloadURL => {
           setPic(downloadURL);
-          console.log(downloadURL);
           setPicLoading(false);
         });
       });

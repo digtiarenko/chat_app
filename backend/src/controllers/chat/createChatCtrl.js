@@ -6,7 +6,6 @@ const createChatCtrl = asyncHandler(async (req, res) => {
   const { userId } = req.body;
 
   if (!userId) {
-    console.log('UserId param not sent with request');
     return res.sendStatus(400);
   }
 
@@ -20,14 +19,10 @@ const createChatCtrl = asyncHandler(async (req, res) => {
     .populate('users', '-password')
     .populate('latestMessage');
 
-  console.log('isChat after Chat find', isChat);
-
   isChat = await User.populate(isChat, {
     path: 'latestMessage.sender',
     select: 'name pic email',
   });
-
-  console.log('isChat after User populate', isChat);
 
   if (isChat.length > 0) {
     res.send(isChat[0]);
