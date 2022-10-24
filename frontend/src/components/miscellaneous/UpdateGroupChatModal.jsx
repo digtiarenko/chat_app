@@ -180,7 +180,7 @@ export const UpdateGroupChatModal = ({
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent height="450px">
+        <ModalContent minHeight="450px">
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"

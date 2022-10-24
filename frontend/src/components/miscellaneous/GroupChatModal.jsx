@@ -112,7 +112,7 @@ export const GroupChatModal = ({ children }) => {
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent height="400px">
+        <ModalContent minHeight="400px">
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"
