@@ -134,34 +134,54 @@ export const SignUp = () => {
         />
       </FormControl>
       <FormControl isRequired>
-        <FormLabel>Password</FormLabel>
-        <InputGroup size="md">
-          <Input
-            type={show ? 'text' : 'password'}
-            placeholder="Enter Password"
-            onChange={e => setPassword(e.target.value)}
+        <form>
+          <FormLabel>Password</FormLabel>
+          <InputGroup size="md">
+            <Input
+              autoComplete="current-password"
+              type={show ? 'text' : 'password'}
+              placeholder="Enter Password"
+              onChange={e => setPassword(e.target.value)}
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>{' '}
+          <input
+            type="text"
+            name="email"
+            autoComplete="username email"
+            style={{ display: 'none' }}
           />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
-              {show ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        </form>
       </FormControl>
       <FormControl isRequired>
-        <FormLabel>Confirm Password</FormLabel>
-        <InputGroup size="md">
-          <Input
-            type={show ? 'text' : 'password'}
-            placeholder="Confirm password"
-            onChange={e => setConfirmpassword(e.target.value)}
-          />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
-              {show ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        {' '}
+        <form>
+          <FormLabel>Confirm Password</FormLabel>
+          <InputGroup size="md">
+            <Input
+              autoComplete="current-password"
+              type={show ? 'text' : 'password'}
+              placeholder="Confirm password"
+              onChange={e => setConfirmpassword(e.target.value)}
+            />
+            <input
+              type="text"
+              name="email"
+              autoComplete="username email"
+              style={{ display: 'none' }}
+            />
+
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </form>
       </FormControl>
 
       <FormControl id="pic">

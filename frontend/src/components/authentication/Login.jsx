@@ -72,28 +72,37 @@ export const Login = () => {
         />
       </FormControl>
       <FormControl isRequired>
-        <FormLabel>Password</FormLabel>
-        <InputGroup size="md">
-          <Input
-            type={show ? 'text' : 'password'}
-            placeholder="Enter password"
-            onChange={e => {
-              setPassword(e.target.value);
-            }}
-          />
-
-          <InputRightElement width="4.5rem">
-            <Button
-              h="1.75rem"
-              size="sm"
-              onClick={() => {
-                setShow(!show);
+        <form>
+          <FormLabel>Password</FormLabel>
+          <InputGroup size="md">
+            <Input
+              type={show ? 'text' : 'password'}
+              placeholder="Enter password"
+              autoComplete="current-password"
+              onChange={e => {
+                setPassword(e.target.value);
               }}
-            >
-              {show ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+            />
+            <input
+              type="text"
+              name="email"
+              autoComplete="username email"
+              style={{ display: 'none' }}
+            />
+
+            <InputRightElement width="4.5rem">
+              <Button
+                h="1.75rem"
+                size="sm"
+                onClick={() => {
+                  setShow(!show);
+                }}
+              >
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </form>
       </FormControl>
       <Button
         colorScheme="gray"
