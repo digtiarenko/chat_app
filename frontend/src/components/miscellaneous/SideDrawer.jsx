@@ -54,6 +54,7 @@ export function SideDrawer() {
 
   const logoutHandler = () => {
     localStorage.removeItem('userInfo');
+    setSelectedChat('');
     navigate('/auth');
   };
 

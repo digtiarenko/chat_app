@@ -74,7 +74,7 @@ export const UpdateGroupChatModal = ({
     try {
       setRenameLoading(true);
       token.set(user.token);
-      const { data } = await axios.put(`/api/chat/rename`, {
+      const { data } = await axios.put(`/api/chat/grouprename`, {
         chatId: selectedChat._id,
         chatName: groupChatName,
       });
@@ -220,7 +220,7 @@ export const UpdateGroupChatModal = ({
                 isLoading={renameloading}
                 onClick={handleRename}
               >
-                Update
+                Rename
               </Button>
             </FormControl>
             <FormControl>

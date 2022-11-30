@@ -122,7 +122,7 @@ export const Login = () => {
           setPassword('123456');
         }}
       >
-        Get Guest User Credentials
+        Press to get Guest User Credentials then press Login
       </Button>
     </VStack>
   );
